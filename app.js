@@ -1,4 +1,5 @@
 //jshint esversion:6
+require('dotenv').config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -11,7 +12,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin:admin123@cluster0.0z2oo.mongodb.net/todolistDB?retryWrites=true&w=majority",{useNewUrlParser : true, useUnifiedTopology: true});
+mongoose.connect(process.env.DB_CONN,{useNewUrlParser : true, useUnifiedTopology: true});
 
 const itemSchema=new mongoose.Schema({
   item: String
@@ -102,6 +103,6 @@ else{
 
 
 
-app.listen(process.env.PORT || 3000,function(){
+app.listen(process.env.PORT || 3001,function(){
   console.log("server running on port 3000");
 });
